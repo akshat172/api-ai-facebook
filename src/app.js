@@ -30,7 +30,7 @@ class FacebookBot {
 
     doDataResponse(sender, facebookResponseData) {
         if (!Array.isArray(facebookResponseData)) {
-            console.log('Response as formatted message');
+            console.log('Response as formatted message to ' + sender);
             this.sendFBMessage(sender, facebookResponseData)
                 .catch(err => console.error(err));
         } else {
@@ -524,7 +524,7 @@ app.post('/webhook/', (req, res) => {
                 let messaging_events = entry.messaging;
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
-                        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[event.recipient.id];
+                        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[ event.recipient.id.toString() ];
                         console.log("/webhook - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + event.recipient.id );
 
                         if (event.message && !event.message.is_echo) {
