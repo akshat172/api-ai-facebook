@@ -378,8 +378,9 @@ class FacebookBot {
     }
 
     sendFBMessage(sender, messageData) {
-        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[sender];
+        // FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[sender];
         console.log("sendFBMessage - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + sender);
+        console.log(messageData);
 
 
         return new Promise((resolve, reject) => {
@@ -526,9 +527,9 @@ app.post('/webhook/', (req, res) => {
                 let messaging_events = entry.messaging;
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
-                        console.log(event.sender);
-                        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[event.sender.id];
-                        console.log("/webhook - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + event.sender.id );
+                        console.log(event);
+                        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[event.recipient.id];
+                        console.log("/webhook - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + event.recipient.id );
 
                         if (event.message && !event.message.is_echo) {
 
