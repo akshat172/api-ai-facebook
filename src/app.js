@@ -408,8 +408,7 @@ class FacebookBot {
 
         return new Promise((resolve, reject) => {
             request({
-                url: 'https://graph.facebook.com/v2.6/me/messages',
-                qs: {access_token: FB_PAGE_ACCESS_TOKEN},
+                uri: `https://graph.facebook.com/v2.6/me/messages?access_token=${FB_PAGE_ACCESS_TOKEN}`,
                 method: 'POST',
                 json: {
                     recipient: {id: sender},
@@ -526,7 +525,6 @@ app.post('/webhook/', (req, res) => {
                 let messaging_events = entry.messaging;
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
-                        console.log(event);
                         FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[event.recipient.id];
                         console.log("/webhook - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + event.recipient.id );
 
