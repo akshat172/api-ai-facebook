@@ -14,6 +14,7 @@ const APIAI_LANG = process.env.APIAI_LANG || 'en';
 const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
 const FB_PAGES_TOKEN = JSON.parse( process.env.FB_PAGES_TOKEN );
 // const FB_PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
+console.log( FB_PAGES_TOKEN );
 
 const FB_TEXT_LIMIT = 640;
 
@@ -516,6 +517,9 @@ app.post('/webhook/', (req, res) => {
                 let messaging_events = entry.messaging;
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
+                        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKEN.(event.sender);
+                        console.log("token: " + FB_PAGE_ACCESS_TOKEN);
+
                         if (event.message && !event.message.is_echo) {
 
                             if (event.message.attachments) {
@@ -533,6 +537,7 @@ app.post('/webhook/', (req, res) => {
                                                 data: l.payload.coordinates
                                             }
                                         };
+                                        
 
                                         facebookBot.processFacebookEvent(locationEvent);
                                     });
