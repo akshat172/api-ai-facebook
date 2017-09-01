@@ -527,8 +527,8 @@ app.post('/webhook/', (req, res) => {
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
                         console.log(event.sender);
-                        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[event.sender];
-                        console.log("/webhook - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + event.sender);
+                        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[event.sender.id];
+                        console.log("/webhook - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + event.sender.id );
 
                         if (event.message && !event.message.is_echo) {
 
