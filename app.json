@@ -13,9 +13,13 @@
       "description": "Verification code",
       "value": ""
     },
-    "FB_PAGE_ACCESS_TOKEN": {
-      "description": "Page Access Token",
-      "value": ""
+    // "FB_PAGE_ACCESS_TOKEN": {
+    //   "description": "Page Access Token",
+    //   "value": ""
+    // },
+    "FB_PAGES_TOKEN": {
+      "description": "Page Access Token. Format: {\"recipient_id\": \"fb_token\",\"recipient_id2\": \"fb_token2\"}",
+      "value": "",
     },
     "APIAI_LANG": {
       "description": "Agent language",

@@ -1,6 +1,19 @@
 # api-ai-facebook
 Facebook bot sources for Api.ai integration
 
+# Changes
+This version allow to have multiple facebook pages using the same bot.
+
+Format of FB_PAGES_TOKEN:
+```javascript
+{
+ "recipient_id": "fb_token",
+  // Example: 
+ "1132314666210914": "BB2WeuNOq0LgBBC21ZBXZCEd3R4FhQEcCTQCe19vt6x1Fb1iXfuPxGBcIwZBy42sgqfZBnZARGMOXoJNxEDWZCjjuQWnJ1eSIDAsrRNWDf0aa4495VNkarbI3k4pZBE26zwlcxSHUAQ6tzCFdtM17OpuZAsxjuytDaIMzQBT8weQB4wZDAD"
+}
+```
+
+
 ## Deploy with Heroku
 Follow [these instructions](https://docs.api.ai/docs/facebook-integration#hosting-fb-messenger-bot-with-heroku).
 Then,  
@@ -12,7 +25,7 @@ Then,
 docker run -it --name fb_bot \
            -p <your_desired_port>:5000 \
            -e APIAI_ACCESS_TOKEN="API.AI client access token" \
-           -e FB_PAGE_ACCESS_TOKEN="Facebook Page Access Token" \
+           -e FB_PAGES_TOKEN="{\"recipient_id\": \"fb_token\",\"recipient_id2\": \"fb_token2\"}" \
            -e FB_VERIFY_TOKEN="Facebook Verify Token" \
            -e APIAI_LANG="en" \
            xvir/api-ai-facebook

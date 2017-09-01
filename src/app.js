@@ -12,11 +12,14 @@ const REST_PORT = (process.env.PORT || 5000);
 const APIAI_ACCESS_TOKEN = process.env.APIAI_ACCESS_TOKEN;
 const APIAI_LANG = process.env.APIAI_LANG || 'en';
 const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
-const FB_PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
+const FB_PAGES_TOKEN = JSON.parse( process.env.FB_PAGES_TOKEN );
+// const FB_PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
+
 const FB_TEXT_LIMIT = 640;
 
 const FACEBOOK_LOCATION = "FACEBOOK_LOCATION";
 const FACEBOOK_WELCOME = "FACEBOOK_WELCOME";
+var FB_PAGE_ACCESS_TOKEN;
 
 class FacebookBot {
     constructor() {
@@ -376,6 +379,8 @@ class FacebookBot {
     }
 
     sendFBMessage(sender, messageData) {
+        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKEN.sender;
+
         return new Promise((resolve, reject) => {
             request({
                 url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -400,6 +405,8 @@ class FacebookBot {
     }
 
     sendFBSenderAction(sender, action) {
+        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKEN.sender;
+
         return new Promise((resolve, reject) => {
             request({
                 url: 'https://graph.facebook.com/v2.6/me/messages',
