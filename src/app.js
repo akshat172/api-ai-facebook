@@ -12,11 +12,13 @@ const REST_PORT = (process.env.PORT || 5000);
 const APIAI_ACCESS_TOKEN = process.env.APIAI_ACCESS_TOKEN;
 const APIAI_LANG = process.env.APIAI_LANG || 'en';
 const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
-const FB_PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
+const FB_PAGES_TOKENS = JSON.parse( process.env.FB_PAGES_TOKEN.replace(/'/g, '"') );
+// const FB_PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
 const FB_TEXT_LIMIT = 640;
 
 const FACEBOOK_LOCATION = "FACEBOOK_LOCATION";
 const FACEBOOK_WELCOME = "FACEBOOK_WELCOME";
+var FB_PAGE_ACCESS_TOKEN;
 
 class FacebookBot {
     constructor() {
@@ -28,7 +30,7 @@ class FacebookBot {
 
     doDataResponse(sender, facebookResponseData) {
         if (!Array.isArray(facebookResponseData)) {
-            console.log('Response as formatted message');
+            console.log('Response as formatted message to ' + sender);
             this.sendFBMessage(sender, facebookResponseData)
                 .catch(err => console.error(err));
         } else {
@@ -376,10 +378,11 @@ class FacebookBot {
     }
 
     sendFBMessage(sender, messageData) {
+        console.log("sendFBMessage - Token: " + FB_PAGE_ACCESS_TOKEN );
+
         return new Promise((resolve, reject) => {
             request({
-                url: 'https://graph.facebook.com/v2.6/me/messages',
-                qs: {access_token: FB_PAGE_ACCESS_TOKEN},
+                uri: `https://graph.facebook.com/v2.6/me/messages?access_token=${FB_PAGE_ACCESS_TOKEN}`,
                 method: 'POST',
                 json: {
                     recipient: {id: sender},
@@ -400,10 +403,11 @@ class FacebookBot {
     }
 
     sendFBSenderAction(sender, action) {
+        console.log("sendFBSenderAction - Token: " + FB_PAGE_ACCESS_TOKEN );
+
         return new Promise((resolve, reject) => {
             request({
-                url: 'https://graph.facebook.com/v2.6/me/messages',
-                qs: {access_token: FB_PAGE_ACCESS_TOKEN},
+                uri: `https://graph.facebook.com/v2.6/me/messages?access_token=${FB_PAGE_ACCESS_TOKEN}`,
                 method: 'POST',
                 json: {
                     recipient: {id: sender},
@@ -424,6 +428,11 @@ class FacebookBot {
     }
 
     doSubscribeRequest() {
+        
+        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS['1436364666410954'];
+        console.log("doSubscribeRequest - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + 0);
+        console.log(FB_PAGES_TOKENS);
+
         request({
                 method: 'POST',
                 uri: `https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=${FB_PAGE_ACCESS_TOKEN}`
@@ -438,6 +447,9 @@ class FacebookBot {
     }
 
     configureGetStartedEvent() {
+        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS['1436364666410954'];
+        console.log("configureGetStartedEvent - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + 0);
+
         request({
                 method: 'POST',
                 uri: `https://graph.facebook.com/v2.6/me/thread_settings?access_token=${FB_PAGE_ACCESS_TOKEN}`,
@@ -489,6 +501,9 @@ app.use(bodyParser.text({type: 'application/json'}));
 
 app.get('/webhook/', (req, res) => {
     if (req.query['hub.verify_token'] === FB_VERIFY_TOKEN) {
+        console.log("doSubscribeRequest");
+        console.log(req);
+
         res.send(req.query['hub.challenge']);
 
         setTimeout(() => {
@@ -509,6 +524,9 @@ app.post('/webhook/', (req, res) => {
                 let messaging_events = entry.messaging;
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
+                        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[ event.recipient.id.toString() ];
+                        console.log("/webhook - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + event.recipient.id );
+
                         if (event.message && !event.message.is_echo) {
 
                             if (event.message.attachments) {
@@ -526,6 +544,7 @@ app.post('/webhook/', (req, res) => {
                                                 data: l.payload.coordinates
                                             }
                                         };
+                                        
 
                                         facebookBot.processFacebookEvent(locationEvent);
                                     });
