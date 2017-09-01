@@ -378,10 +378,7 @@ class FacebookBot {
     }
 
     sendFBMessage(sender, messageData) {
-        // FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[sender];
-        console.log("sendFBMessage - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + sender);
-        console.log(messageData);
-
+        console.log("sendFBMessage - Token: " + FB_PAGE_ACCESS_TOKEN );
 
         return new Promise((resolve, reject) => {
             request({
@@ -407,9 +404,7 @@ class FacebookBot {
     }
 
     sendFBSenderAction(sender, action) {
-        // FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[sender];
-        console.log("sendFBSenderAction - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + sender);
-        console.log(action);
+        console.log("sendFBSenderAction - Token: " + FB_PAGE_ACCESS_TOKEN );
 
         return new Promise((resolve, reject) => {
             request({
@@ -508,6 +503,9 @@ app.use(bodyParser.text({type: 'application/json'}));
 
 app.get('/webhook/', (req, res) => {
     if (req.query['hub.verify_token'] === FB_VERIFY_TOKEN) {
+        console.log("doSubscribeRequest");
+        console.log(req);
+
         res.send(req.query['hub.challenge']);
 
         setTimeout(() => {
