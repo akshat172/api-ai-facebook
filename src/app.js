@@ -378,7 +378,7 @@ class FacebookBot {
     }
 
     sendFBMessage(sender, messageData) {
-        console.log("sendFBMessage - Token: " + FB_PAGE_ACCESS_TOKEN );
+        // console.log("sendFBMessage - Token: " + FB_PAGE_ACCESS_TOKEN );
 
         return new Promise((resolve, reject) => {
             request({
@@ -403,7 +403,7 @@ class FacebookBot {
     }
 
     sendFBSenderAction(sender, action) {
-        console.log("sendFBSenderAction - Token: " + FB_PAGE_ACCESS_TOKEN );
+        // console.log("sendFBSenderAction - Token: " + FB_PAGE_ACCESS_TOKEN );
 
         return new Promise((resolve, reject) => {
             request({
@@ -428,10 +428,8 @@ class FacebookBot {
     }
 
     doSubscribeRequest() {
-        
-        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS['1436364666410954'];
-        console.log("doSubscribeRequest - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + 0);
-        console.log(FB_PAGES_TOKENS);
+        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[ Object.keys(FB_PAGES_TOKENS)[0] ];
+        // console.log("doSubscribeRequest - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + 0);
 
         request({
                 method: 'POST',
@@ -447,8 +445,8 @@ class FacebookBot {
     }
 
     configureGetStartedEvent() {
-        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS['1436364666410954'];
-        console.log("configureGetStartedEvent - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + 0);
+        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[ Object.keys(FB_PAGES_TOKENS)[0] ];
+        // console.log("configureGetStartedEvent - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + 0);
 
         request({
                 method: 'POST',
@@ -501,9 +499,6 @@ app.use(bodyParser.text({type: 'application/json'}));
 
 app.get('/webhook/', (req, res) => {
     if (req.query['hub.verify_token'] === FB_VERIFY_TOKEN) {
-        console.log("doSubscribeRequest");
-        console.log(req);
-
         res.send(req.query['hub.challenge']);
 
         setTimeout(() => {
@@ -517,7 +512,6 @@ app.get('/webhook/', (req, res) => {
 app.post('/webhook/', (req, res) => {
     try {
         const data = JSONbig.parse(req.body);
-        console.log(req.body);
         if (data.entry) {
             let entries = data.entry;
             entries.forEach((entry) => {
@@ -525,7 +519,7 @@ app.post('/webhook/', (req, res) => {
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
                         FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[ event.recipient.id.toString() ];
-                        console.log("/webhook - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + event.recipient.id );
+                        // console.log("/webhook - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + event.recipient.id );
 
                         if (event.message && !event.message.is_echo) {
 
