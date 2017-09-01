@@ -407,8 +407,9 @@ class FacebookBot {
     }
 
     sendFBSenderAction(sender, action) {
-        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[sender];
+        // FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[sender];
         console.log("sendFBSenderAction - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + sender);
+        console.log(action);
 
         return new Promise((resolve, reject) => {
             request({
