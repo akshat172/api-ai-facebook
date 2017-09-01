@@ -434,7 +434,7 @@ class FacebookBot {
 
     doSubscribeRequest() {
         
-        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[0];
+        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS['1436364666410954'];
         console.log("doSubscribeRequest - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + 0);
         console.log(FB_PAGES_TOKENS);
 
@@ -452,7 +452,7 @@ class FacebookBot {
     }
 
     configureGetStartedEvent() {
-        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[0];
+        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS['1436364666410954'];
         console.log("configureGetStartedEvent - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + 0);
 
         request({
