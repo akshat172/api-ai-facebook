@@ -14,9 +14,6 @@ const APIAI_LANG = process.env.APIAI_LANG || 'en';
 const FB_VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
 const FB_PAGES_TOKEN = JSON.parse( process.env.FB_PAGES_TOKEN.replace(/'/g, '"') );
 // const FB_PAGE_ACCESS_TOKEN = process.env.FB_PAGE_ACCESS_TOKEN;
-console.log( process.env.FB_PAGES_TOKEN );
-console.log( FB_PAGES_TOKEN );
-
 const FB_TEXT_LIMIT = 640;
 
 const FACEBOOK_LOCATION = "FACEBOOK_LOCATION";
@@ -381,7 +378,9 @@ class FacebookBot {
     }
 
     sendFBMessage(sender, messageData) {
-        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKEN.sender;
+        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKEN[sender];
+        console.log("sendFBMessage - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + sender);
+
 
         return new Promise((resolve, reject) => {
             request({
@@ -407,7 +406,8 @@ class FacebookBot {
     }
 
     sendFBSenderAction(sender, action) {
-        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKEN.sender;
+        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKEN[sender];
+        console.log("sendFBSenderAction - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + sender);
 
         return new Promise((resolve, reject) => {
             request({
@@ -497,6 +497,9 @@ const app = express();
 app.use(bodyParser.text({type: 'application/json'}));
 
 app.get('/webhook/', (req, res) => {
+    console.log("req");
+    console.log(req);
+
     if (req.query['hub.verify_token'] === FB_VERIFY_TOKEN) {
         res.send(req.query['hub.challenge']);
 
@@ -519,7 +522,7 @@ app.post('/webhook/', (req, res) => {
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
                         FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKEN[event.sender];
-                        console.log("token: " + FB_PAGE_ACCESS_TOKEN);
+                        console.log("/webhook - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + sender);
 
                         if (event.message && !event.message.is_echo) {
 
