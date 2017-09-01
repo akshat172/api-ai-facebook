@@ -505,9 +505,6 @@ const app = express();
 app.use(bodyParser.text({type: 'application/json'}));
 
 app.get('/webhook/', (req, res) => {
-    console.log("req");
-    console.log(req);
-
     if (req.query['hub.verify_token'] === FB_VERIFY_TOKEN) {
         res.send(req.query['hub.challenge']);
 
@@ -529,8 +526,9 @@ app.post('/webhook/', (req, res) => {
                 let messaging_events = entry.messaging;
                 if (messaging_events) {
                     messaging_events.forEach((event) => {
+                        console.log(event.sender);
                         FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKENS[event.sender];
-                        console.log("/webhook - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + sender);
+                        console.log("/webhook - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + event.sender);
 
                         if (event.message && !event.message.is_echo) {
 
