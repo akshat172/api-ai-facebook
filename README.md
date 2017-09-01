@@ -8,10 +8,18 @@ Format of FB_PAGES_TOKEN:
 ```javascript
 {
  "recipient_id": "fb_token",
-  // Example: 
- "1132314666210914": "BB2WeuNOq0LgBBC21ZBXZCEd3R4FhQEcCTQCe19vt6x1Fb1iXfuPxGBcIwZBy42sgqfZBnZARGMOXoJNxEDWZCjjuQWnJ1eSIDAsrRNWDf0aa4495VNkarbI3k4pZBE26zwlcxSHUAQ6tzCFdtM17OpuZAsxjuytDaIMzQBT8weQB4wZDAD"
 }
 ```
+
+Example:
+
+```javascript
+ "1132314666210914": "BB2WeuNOq0LgBBC21ZBXZCEd3R4FhQEcCTQCe19vt6x1Fb1iXfuPxGBcIwZBy42sgqfZBnZARGMOXoJNxEDWZCjjuQWnJ1eSIDAsrRNWDf0aa4495VNkarbI3k4pZBE26zwlcxSHUAQ6tzCFdtM17OpuZAsxjuytDaIMzQBT8weQB4wZDAD",
+ "2222223333333444": "ATQCe19vt6x1Fb1iXfuPxGBcIwZBy42sgqfZCe19vt6x1Fb1iXfuPxGBcIwZBy42sgqfZBnZARGMOXoJNxEDWZCjjuQWnJ1eSIDAsrRNWDf0aa4495VNkarbI3k4pZBE26zwlcxSHUAQ6tzCFdtM17OpuZAsxjuytDaIMzQBT8uPxGBcGJD",
+ "1234567891234567": "7OpuZAsxjuytDaIMzQBT8uPxGBcGJATQCe19vt6x1Fb1iXfuPxGBccIwZBy42sgqfZBnZARGMOXoJNxEDWZCjjuQWnJ1eSIDAsrRNWDf0aa4495VNkarbI3kIwZBy42sgqfZCe19vt6x1Fb1iXfuPxGB4pZBE26zwlcxSHUAQ6tzCFdtM1D"
+```
+
+You can find your recpient_id (Page ID) with this site: https://findmyfbid.com/
 
 
 ## Deploy with Heroku
