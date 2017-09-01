@@ -433,8 +433,10 @@ class FacebookBot {
     }
 
     doSubscribeRequest() {
+        
         FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKEN[0];
         console.log("doSubscribeRequest - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + 0);
+        console.log(FB_PAGES_TOKEN);
 
         request({
                 method: 'POST',
