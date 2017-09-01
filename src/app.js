@@ -433,6 +433,9 @@ class FacebookBot {
     }
 
     doSubscribeRequest() {
+        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKEN[0];
+        console.log("doSubscribeRequest - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + 0);
+
         request({
                 method: 'POST',
                 uri: `https://graph.facebook.com/v2.6/me/subscribed_apps?access_token=${FB_PAGE_ACCESS_TOKEN}`
@@ -447,6 +450,9 @@ class FacebookBot {
     }
 
     configureGetStartedEvent() {
+        FB_PAGE_ACCESS_TOKEN = FB_PAGES_TOKEN[0];
+        console.log("configureGetStartedEvent - Token: " + FB_PAGE_ACCESS_TOKEN + " Sender: " + 0);
+
         request({
                 method: 'POST',
                 uri: `https://graph.facebook.com/v2.6/me/thread_settings?access_token=${FB_PAGE_ACCESS_TOKEN}`,
